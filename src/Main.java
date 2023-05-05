@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -12,7 +13,18 @@ public class Main {
         persons.add(new Person("Igor", "Prostoy", 47));
         persons.add(new Person("Viktoria", "Ivanova", 35));
 
-        Collections.sort(persons, new PersonComparator());
+
+        Comparator<Person> PersonComparator = (p1, p2) -> {
+            if (p1.getSurname().length() < p2.getSurname().length()) {
+                return 1;
+            }
+            if (p1.getSurname().length() > p2.getSurname().length()) {
+                return -1;
+            }
+            return -(p1.getAge() - p2.getAge());
+        };
+
+        Collections.sort(persons, PersonComparator);
 
         for (Person person : persons) {
             System.out.println(person);
